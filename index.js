@@ -59,6 +59,9 @@ server.on('error', function (e) {
             server.listen(SOCKET_PATH);
         }
    }
+   else {
+   	console.log(e);
+   }
 });
 server.listen(SOCKET_PATH);
 
