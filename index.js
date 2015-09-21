@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var net = require('net'),
+	fs = require('fs'),
 	path = require('path'),
 	config = require('config'),
 	spawn = require('child_process').spawn;
@@ -51,7 +52,16 @@ function doDeploy() {
 	});
 }
 
+server.on('error', function (e) {
+    if (e.code == 'EADDRINUSE') {
+        if (e.code == 'ECONNREFUSED') {  // No other server listening
+            fs.unlinkSync(SOCKET_PATH);
+            server.listen(SOCKET_PATH);
+        }
+   }
+});
 server.listen(SOCKET_PATH);
+
 if(LOGGING) {
 	console.log(NAME + " Deployer listening");
 }
