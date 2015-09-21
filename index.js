@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var net = require('net'),
 	path = require('path'),
 	config = require('config'),
@@ -20,7 +22,6 @@ var server = net.createServer(function(c) {
 		data = data.trim();
 		if(data === "DEPLOY") {
 			doDeploy();
-			server.close();
 		}
 	});
 });
